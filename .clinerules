@@ -1,0 +1,6 @@
+- Stack: Java 21 Spring Boot 3.x, Flutter, Neon PostgreSQL, Hive, Dio, STOMP.
+- Security: Strict 1-to-1 User-to-Family binding via JWT claims (`family_id`).
+- Ledger: Use `BigDecimal` with `RoundingMode.HALF_EVEN` in Java, `NUMERIC(12,2)` in PostgreSQL, and integer cents in Dart. Never use floating point for money.
+- Architecture: Spring Boot modular monolith. Modules communicate across boundaries through public interfaces or Spring ApplicationEvents; do not import another module's internal types.
+- Git workflow: Develop and validate changes on `staging`. Treat `staging` as the testing environment and promote only verified changes to `main`, which is production. Do not develop directly on `main`.
+- Agent changes: Before changing any project file, load and follow `.github/skills/technical-decision-documentation/SKILL.md`. Create and maintain a change-specific technical decision record in `context/technical-decisions/`, explain the rationale and tradeoffs for each meaningful step, record actual verification results, and include the record in the final response.

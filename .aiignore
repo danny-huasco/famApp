@@ -1,0 +1,11 @@
+.env
+.env.*
+backend/build/
+backend/.gradle/
+backend/bin/
+backend/target/
+mobile/.dart_tool/
+mobile/build/
+*.class
+*.jar
+*.log

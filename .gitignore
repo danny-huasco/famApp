@@ -1,3 +1,13 @@
+.env
+.env.*
+!.env.example
+backend/.gradle/
+backend/build/
+backend/bin/
+backend/target/
+mobile/.dart_tool/
+mobile/build/
+
 # Compiled class file
 *.class
 
@@ -22,3 +32,5 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+!backend/gradle/wrapper/gradle-wrapper.jar
