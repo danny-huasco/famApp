@@ -28,6 +28,9 @@ public class CalendarEventEntity {
     @Column(name = "end_time", nullable = false)
     private Instant endTime;
 
+    @Column(nullable = false)
+    private boolean locked;
+
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CalendarEventAttendeeEntity> attendees = new LinkedHashSet<>();
 
@@ -52,5 +55,13 @@ public class CalendarEventEntity {
             throw new IllegalArgumentException("Booked event attendees must be unique.");
         }
         attendees.add(new CalendarEventAttendeeEntity(UUID.randomUUID(), this, attendeeId));
+    }
+
+    public void lock() {
+        locked = true;
+    }
+
+    public boolean isLocked() {
+        return locked;
     }
 }

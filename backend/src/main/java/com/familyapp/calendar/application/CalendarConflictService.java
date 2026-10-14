@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.familyapp.calendar.api.CalendarConflictAssessment;
+import com.familyapp.calendar.api.BookedEventPort;
 import com.familyapp.calendar.api.ScheduleConflictPort;
 import com.familyapp.calendar.domain.CalendarConflictClassifier;
+import com.familyapp.calendar.internal.persistence.CalendarEventEntity;
 import com.familyapp.calendar.internal.persistence.CalendarEventRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class CalendarConflictService implements ScheduleConflictPort {
+public class CalendarConflictService implements ScheduleConflictPort, BookedEventPort {
     private final CalendarEventRepository calendarEventRepository;
     private final CalendarConflictClassifier classifier;
 
@@ -44,5 +46,18 @@ public class CalendarConflictService implements ScheduleConflictPort {
                 attendeeIds.size(),
                 conflicts.size(),
                 conflicts);
+    }
+
+    @Override
+    @Transactional
+    public void recordBookedEvent(
+            UUID outingId,
+            String title,
+            Instant startTime,
+            Instant endTime,
+            Set<UUID> attendeeIds) {
+        CalendarEventEntity event = new CalendarEventEntity(outingId, title, startTime, endTime);
+        attendeeIds.forEach(event::addAttendee);
+        calendarEventRepository.save(event);
     }
 }
