@@ -20,4 +20,14 @@ public interface UserAvailabilityRepository
     List<UserAvailabilityEntity> findAllByOutingIdAndUserIdIn(
             UUID outingId,
             Set<UUID> userIds);
+
+    List<UserAvailabilityEntity> findAllByOutingIdAndUserIdOrderByStartTimeAsc(
+            UUID outingId,
+            UUID userId);
+
+    List<UserAvailabilityEntity> findAllByOutingIdAndUserIdInOrderByStartTimeAsc(
+            UUID outingId,
+            Set<UUID> userIds);
+
+    void deleteAllByOutingIdAndUserId(UUID outingId, UUID userId);
 }

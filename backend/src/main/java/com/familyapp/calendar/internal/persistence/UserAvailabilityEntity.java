@@ -60,6 +60,26 @@ public class UserAvailabilityEntity {
         return userId;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public UUID getOutingId() {
+        return outingId;
+    }
+
+    public Instant getStartTime() {
+        return startTime;
+    }
+
+    public Instant getEndTime() {
+        return endTime;
+    }
+
+    public boolean isTentative() {
+        return tentative;
+    }
+
     public AvailabilityWindow toWindow() {
         return new AvailabilityWindow(startTime, endTime, tentative);
     }

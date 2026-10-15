@@ -22,16 +22,6 @@ void main() {
     await Hive.openBox(userAvailabilityBoxName);
     expenses = await Hive.openBox<Expense>(expensesBoxName);
     await Hive.openBox(pendingRequestsBoxName);
-  });
-
-  tearDown(() async {
-    await Hive.close();
-    await hiveDirectory.delete(recursive: true);
-  });
-
-  testWidgets('renders upcoming outings and family balance from Hive offline', (
-    tester,
-  ) async {
     final startTime = DateTime.now().add(const Duration(days: 2));
     final outing = Outing(
       id: 'outing-id',
@@ -52,7 +42,16 @@ void main() {
     );
     await outings.put(outing.id, outing);
     await expenses.put(expense.id, expense);
+  });
 
+  tearDown(() async {
+    await Hive.close();
+    await hiveDirectory.delete(recursive: true);
+  });
+
+  testWidgets('renders upcoming outings and family balance from Hive offline', (
+    tester,
+  ) async {
     await tester.pumpWidget(const MyApp());
 
     expect(find.text('Family plans'), findsOneWidget);
